@@ -50,13 +50,10 @@ class LoginComponent extends Component {
             <div className="Login">
                 <h1>Login</h1>
                 <div className="container">
-                    
                     <ShowInvalidCredentials hasLoginFailed={this.state.hasLoginFailed} />
-                    <ShowLoginSuccessMessage showSucessMessage={this.state.showSucessMessage} />
-
                     UserName: <input type="text" name="username" value={this.state.username} onChange={this.handleChange} />
                     Password: <input type="password" name="password" value={this.state.password} onChange={this.handleChange} />
-                    <button onClick={this.loginClicked}>Login</button>
+                    <button className="btn btn-success" onClick={this.loginClicked}>Login</button>
                 </div>
             </div>
         );
@@ -65,14 +62,7 @@ class LoginComponent extends Component {
 
 function ShowInvalidCredentials(props) {
     if (props.hasLoginFailed) {
-        return <div>Invalid Credentials!</div>
-    }
-    return null
-}
-
-function ShowLoginSuccessMessage(props) {
-    if (props.showSucessMessage) {
-        return <div>Login sucessful!</div>
+        return <div className="alert alert-warning">Invalid Credentials!</div>
     }
     return null
 }
