@@ -7,6 +7,7 @@ import LoginComponent from './Login'
 import WelcomeComponent from './Welcome'
 import ListTodosComponent from './ListTodos'
 import AuthenticatedRoute from './AuthenticatedRoute'
+import ErrorComponent from './ErrorComponent'
 
 
 class TodoApp extends Component {
@@ -30,10 +31,5 @@ class TodoApp extends Component {
         );
     }
 }
-
-function ErrorComponent() {
-    return <div>Error Occured. Contact the administrator!</div>
-}
-
 
 export default TodoApp;
