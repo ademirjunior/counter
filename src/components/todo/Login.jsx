@@ -12,15 +12,11 @@ class LoginComponent extends Component {
             hasLoginFailed: false,
             showSucessMessage: false
         }
-
         this.handleChange = this.handleChange.bind(this);
         this.loginClicked = this.loginClicked.bind(this);
-        // this.handlePasswordChange = this.handlePasswordChange.bind(this);
     }
 
     handleChange(event) {
-        //prints the state before the change
-        // console.log(this.state)
         this.setState(
             {
                 [event.target.name]: event.target.value
@@ -28,23 +24,36 @@ class LoginComponent extends Component {
         )
     }
 
-    // handlePasswordChange(event) {
-    //     console.log(event.target.value)
-    //     this.setState({password: event.target.value})
-    // }
-
     loginClicked() {
-        //Valid = ademir, 1234
-        if (this.state.username === 'ademir' && this.state.password === '1234') {
-            AuthenticationService.registerSuccesfullLogin(this.state.username, this.state.password);
-            this.props.history.push(`/welcome/${this.state.username}`)
-            // this.setState({ showSucessMessage: true })
-            // this.setState({ hasLoginFailed: false })
-        } else {
-            this.setState({ showSucessMessage: false })
-            this.setState({ hasLoginFailed: true })
-        }
         console.log(this.state)
+        // AuthenticationService
+        //     .executeBasicAuthenticationService(this.state.username, this.state.password)
+        //     .then(
+        //         () => {
+        //             AuthenticationService.registerSuccesfullLogin(this.state.username, this.state.password);
+        //             this.props.history.push(`/welcome/${this.state.username}`)
+        //         }
+        //     )
+        //     .catch(
+        //         () => {
+        //             this.setState({ showSucessMessage: false })
+        //             this.setState({ hasLoginFailed: true })
+        //         }
+        //     )
+        AuthenticationService
+            .executeJwtAuthenticationService(this.state.username, this.state.password)
+            .then(
+                (response) => {
+                    AuthenticationService.registerSuccesfullLoginForJwt(this.state.username, response.data.token);
+                    this.props.history.push(`/welcome/${this.state.username}`)
+                }
+            )
+            .catch(
+                () => {
+                    this.setState({ showSucessMessage: false })
+                    this.setState({ hasLoginFailed: true })
+                }
+            )
     }
 
     render() {
